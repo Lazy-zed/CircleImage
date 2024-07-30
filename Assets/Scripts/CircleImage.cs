@@ -7,131 +7,131 @@ using UnityEngine.UI;
 public class CircleImage : Image
 {
     [SerializeField]
-    public int segements = 100;  // Ô²ĞÎÓÉ¶àÉÙ¿éÈı½ÇĞÎÆ´³É£¬·Ö¶ÎÊıÔ½¶àÔ²ĞÎÔ½Æ½»¬
+    public int segements = 100;  // åœ†å½¢ç”±å¤šå°‘å—ä¸‰è§’å½¢æ‹¼æˆï¼Œåˆ†æ®µæ•°è¶Šå¤šåœ†å½¢è¶Šå¹³æ»‘
 
     [SerializeField]
-    public float showPercent = 1;  // ÏÔÊ¾²¿·ÖÕ¼Ô²ĞÎµÄ°Ù·Ö±È£¬±ÈÈç0.5±íÊ¾°ëÔ²
+    public float showPercent = 1;  // æ˜¾ç¤ºéƒ¨åˆ†å åœ†å½¢çš„ç™¾åˆ†æ¯”ï¼Œæ¯”å¦‚0.5è¡¨ç¤ºåŠåœ†
 
-    public readonly Color32 GRAY_COLOR = new Color32(60, 60, 60, 255);  // »ÒÉ«£¬ÓÃÓÚÎ´ÏÔÊ¾²¿·Ö
+    public readonly Color32 GRAY_COLOR = new Color32(60, 60, 60, 255);  // ç°è‰²ï¼Œç”¨äºæœªæ˜¾ç¤ºéƒ¨åˆ†
 
-    public List<Vector3> _vertexList;  // ÓÃÓÚ´æ´¢¶¥µãµÄÁĞ±í
+    public List<Vector3> _vertexList;  // ç”¨äºå­˜å‚¨é¡¶ç‚¹çš„åˆ—è¡¨
 
     protected override void OnPopulateMesh(VertexHelper vh)
     {
-        vh.Clear();  // Çå³ıÖ®Ç°µÄ¶¥µã
+        vh.Clear();  // æ¸…é™¤ä¹‹å‰çš„é¡¶ç‚¹
 
         _vertexList = new List<Vector3>();
 
-        AddVertex(vh, segements);  // Ìí¼Ó¶¥µã
+        AddVertex(vh, segements);  // æ·»åŠ é¡¶ç‚¹
 
-        AddTriangle(vh, segements);  // Ìí¼ÓÈı½ÇĞÎ
+        AddTriangle(vh, segements);  // æ·»åŠ ä¸‰è§’å½¢
     }
 
     private void AddVertex(VertexHelper vh, int segements)
     {
-        float width = rectTransform.rect.width;  // »ñÈ¡¾ØĞÎµÄ¿í¶È
-        float heigth = rectTransform.rect.height;  // »ñÈ¡¾ØĞÎµÄ¸ß¶È
-        int realSegments = (int)(segements * showPercent);  // ¼ÆËãÊµ¼ÊµÄ·Ö¶ÎÊı
+        float width = rectTransform.rect.width;  // è·å–çŸ©å½¢çš„å®½åº¦
+        float heigth = rectTransform.rect.height;  // è·å–çŸ©å½¢çš„é«˜åº¦
+        int realSegments = (int)(segements * showPercent);  // è®¡ç®—å®é™…çš„åˆ†æ®µæ•°
 
-        Vector4 uv = overrideSprite != null ? DataUtility.GetOuterUV(overrideSprite) : Vector4.zero;  // »ñÈ¡Í¼ÏñµÄUV×ø±ê
+        Vector4 uv = overrideSprite != null ? DataUtility.GetOuterUV(overrideSprite) : Vector4.zero;  // è·å–å›¾åƒçš„UVåæ ‡
 
-        float uvWidth = uv.z - uv.x;  // ¼ÆËãUV¿í¶È
-        float uvHeight = uv.w - uv.y;  // ¼ÆËãUV¸ß¶È
-        Vector2 uvCenter = new Vector2(uvWidth * 0.5f, uvHeight * 0.5f);  // ¼ÆËãUVµÄÖĞĞÄµã
-        Vector2 convertRatio = new Vector2(uvWidth / width, uvHeight / heigth);  // ¼ÆËãUVËõ·Å±ÈÂÊ
+        float uvWidth = uv.z - uv.x;  // è®¡ç®—UVå®½åº¦
+        float uvHeight = uv.w - uv.y;  // è®¡ç®—UVé«˜åº¦
+        Vector2 uvCenter = new Vector2(uvWidth * 0.5f, uvHeight * 0.5f);  // è®¡ç®—UVçš„ä¸­å¿ƒç‚¹
+        Vector2 convertRatio = new Vector2(uvWidth / width, uvHeight / heigth);  // è®¡ç®—UVç¼©æ”¾æ¯”ç‡
 
-        float radian = (2 * Mathf.PI) / segements;  // Ã¿¸ö·Ö¶ÎµÄ»¡¶È
-        float radius = width * 0.5f;  // °ë¾¶
+        float radian = (2 * Mathf.PI) / segements;  // æ¯ä¸ªåˆ†æ®µçš„å¼§åº¦
+        float radius = width * 0.5f;  // åŠå¾„
 
-        Vector2 originPos = new Vector2((0.5f - rectTransform.pivot.x) * width, (0.5f - rectTransform.pivot.y) * heigth);  // ¼ÆËãÔ­µãÎ»ÖÃ
-        Vector2 vertPos = Vector2.zero;  // ³õÊ¼»¯¶¥µãÎ»ÖÃÎªÁã
+        Vector2 originPos = new Vector2((0.5f - rectTransform.pivot.x) * width, (0.5f - rectTransform.pivot.y) * heigth);  // è®¡ç®—åŸç‚¹ä½ç½®
+        Vector2 vertPos = Vector2.zero;  // åˆå§‹åŒ–é¡¶ç‚¹ä½ç½®ä¸ºé›¶
 
-        Color32 colorTemp = GetOriginColor();  // »ñÈ¡ÑÕÉ«
-        UIVertex origin = GetUIVertex(colorTemp, originPos, vertPos, uvCenter, convertRatio);  // ´´½¨ÖĞĞÄ¶¥µã
-        vh.AddVert(origin);  // Ìí¼ÓÖĞĞÄ¶¥µã
+        Color32 colorTemp = GetOriginColor();  // è·å–é¢œè‰²
+        UIVertex origin = GetUIVertex(colorTemp, originPos, vertPos, uvCenter, convertRatio);  // åˆ›å»ºä¸­å¿ƒé¡¶ç‚¹
+        vh.AddVert(origin);  // æ·»åŠ ä¸­å¿ƒé¡¶ç‚¹
 
-        int vertexCount = realSegments + 1;  // ¶¥µãÊıÁ¿
-        float curRadian = 0;  // µ±Ç°»¡¶È
-        Vector2 posTermp = Vector2.zero;  // ÁÙÊ±¶¥µãÎ»ÖÃ
-        for (int i = 0; i < segements + 1; i++)  // Ñ­»·Ìí¼Ó¶¥µã
+        int vertexCount = realSegments + 1;  // é¡¶ç‚¹æ•°é‡
+        float curRadian = 0;  // å½“å‰å¼§åº¦
+        Vector2 posTermp = Vector2.zero;  // ä¸´æ—¶é¡¶ç‚¹ä½ç½®
+        for (int i = 0; i < segements + 1; i++)  // å¾ªç¯æ·»åŠ é¡¶ç‚¹
         {
-            float x = Mathf.Cos(curRadian) * radius;  // ¼ÆËã¶¥µãµÄx×ø±ê
-            float y = Mathf.Sin(curRadian) * radius;  // ¼ÆËã¶¥µãµÄy×ø±ê
-            curRadian += radian;  // µ±Ç°»¡¶ÈÔö¼Ó
+            float x = Mathf.Cos(curRadian) * radius;  // è®¡ç®—é¡¶ç‚¹çš„xåæ ‡
+            float y = Mathf.Sin(curRadian) * radius;  // è®¡ç®—é¡¶ç‚¹çš„yåæ ‡
+            curRadian += radian;  // å½“å‰å¼§åº¦å¢åŠ 
 
             if (i < vertexCount)
             {
-                colorTemp = color;  // Ê×¶ÎµÄÑÕÉ«
+                colorTemp = color;  // é¦–æ®µçš„é¢œè‰²
             }
             else
             {
-                colorTemp = GRAY_COLOR;  // Ã»ÏÔÂ¶µÄ²¿·ÖÓÃ»ÒÉ«
+                colorTemp = GRAY_COLOR;  // æ²¡æ˜¾éœ²çš„éƒ¨åˆ†ç”¨ç°è‰²
             }
-            posTermp = new Vector2(x, y);  // ´´½¨¶¥µãÎ»ÖÃ
-            UIVertex vertexTemp = GetUIVertex(colorTemp, posTermp + originPos, posTermp, uvCenter, convertRatio);  // ´´½¨¶¥µã
-            vh.AddVert(vertexTemp);  // Ìí¼Ó¶¥µã
-            _vertexList.Add(posTermp + originPos);  // ´æ´¢¶¥µãÎ»ÖÃ
+            posTermp = new Vector2(x, y);  // åˆ›å»ºé¡¶ç‚¹ä½ç½®
+            UIVertex vertexTemp = GetUIVertex(colorTemp, posTermp + originPos, posTermp, uvCenter, convertRatio);  // åˆ›å»ºé¡¶ç‚¹
+            vh.AddVert(vertexTemp);  // æ·»åŠ é¡¶ç‚¹
+            _vertexList.Add(posTermp + originPos);  // å­˜å‚¨é¡¶ç‚¹ä½ç½®
         }
     }
 
     private Color32 GetOriginColor()
     {
-        Color32 colorTemp = (Color.white - GRAY_COLOR) * showPercent;  // ¼ÆËãÑÕÉ«²îÖµ
+        Color32 colorTemp = (Color.white - GRAY_COLOR) * showPercent;  // è®¡ç®—é¢œè‰²å·®å€¼
         return new Color32(
-            (byte)(GRAY_COLOR.r + colorTemp.r),  // ¼ÆËãºìÉ«·ÖÁ¿
-            (byte)(GRAY_COLOR.g + colorTemp.g),  // ¼ÆËãÂÌÉ«·ÖÁ¿
-            (byte)(GRAY_COLOR.b + colorTemp.b),  // ¼ÆËãÀ¶É«·ÖÁ¿
-            255);  // ²»Í¸Ã÷¶È
+            (byte)(GRAY_COLOR.r + colorTemp.r),  // è®¡ç®—çº¢è‰²åˆ†é‡
+            (byte)(GRAY_COLOR.g + colorTemp.g),  // è®¡ç®—ç»¿è‰²åˆ†é‡
+            (byte)(GRAY_COLOR.b + colorTemp.b),  // è®¡ç®—è“è‰²åˆ†é‡
+            255);  // ä¸é€æ˜åº¦
     }
 
     private void AddTriangle(VertexHelper vh, int realSegements)
     {
-        int id = 1;  // µÚÒ»¸ö¶¥µãµÄIDÊÇ1£¬0ÊÇÖĞĞÄµã
-        for (int i = 0; i < realSegements; i++)  // Ñ­»·Ìí¼ÓÈı½ÇĞÎ
+        int id = 1;  // ç¬¬ä¸€ä¸ªé¡¶ç‚¹çš„IDæ˜¯1ï¼Œ0æ˜¯ä¸­å¿ƒç‚¹
+        for (int i = 0; i < realSegements; i++)  // å¾ªç¯æ·»åŠ ä¸‰è§’å½¢
         {
-            vh.AddTriangle(id, 0, id + 1);  // Ìí¼ÓÒ»¸öÈı½ÇĞÎ
+            vh.AddTriangle(id, 0, id + 1);  // æ·»åŠ ä¸€ä¸ªä¸‰è§’å½¢
             id++;
         }
     }
 
     private UIVertex GetUIVertex(Color32 col, Vector3 pos, Vector2 uvPos, Vector2 uvCenter, Vector2 uvScale)
     {
-        UIVertex vertexTemp = new UIVertex();  // ´´½¨Ò»¸öUI¶¥µã
-        vertexTemp.color = col;  // ÉèÖÃ¶¥µãÑÕÉ«
-        vertexTemp.position = pos;  // ÉèÖÃ¶¥µãÎ»ÖÃ
-        vertexTemp.uv0 = new Vector2(uvPos.x * uvScale.x + uvCenter.x, uvPos.y * uvScale.y + uvCenter.y);  // ¼ÆËãUV×ø±ê
+        UIVertex vertexTemp = new UIVertex();  // åˆ›å»ºä¸€ä¸ªUIé¡¶ç‚¹
+        vertexTemp.color = col;  // è®¾ç½®é¡¶ç‚¹é¢œè‰²
+        vertexTemp.position = pos;  // è®¾ç½®é¡¶ç‚¹ä½ç½®
+        vertexTemp.uv0 = new Vector2(uvPos.x * uvScale.x + uvCenter.x, uvPos.y * uvScale.y + uvCenter.y);  // è®¡ç®—UVåæ ‡
         return vertexTemp;
     }
 
     public override bool IsRaycastLocationValid(Vector2 screenPoint, Camera eventCamera)
     {
-        Vector2 localPoint;  // ¾Ö²¿µã
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPoint, eventCamera, out localPoint);  // ×ª»»ÆÁÄ»µãÎª¾Ö²¿µã
-        return IsValid(localPoint);  // ÅĞ¶Ï¾Ö²¿µãÊÇ·ñÓĞĞ§
+        Vector2 localPoint;  // å±€éƒ¨ç‚¹
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPoint, eventCamera, out localPoint);  // è½¬æ¢å±å¹•ç‚¹ä¸ºå±€éƒ¨ç‚¹
+        return IsValid(localPoint);  // åˆ¤æ–­å±€éƒ¨ç‚¹æ˜¯å¦æœ‰æ•ˆ
     }
 
     private bool IsValid(Vector2 localPoint)
     {
-        return GetCrossPointNum(localPoint, _vertexList) % 2 == 1;  // ¼ì²é½»²æµãÊı
+        return GetCrossPointNum(localPoint, _vertexList) % 2 == 1;  // æ£€æŸ¥äº¤å‰ç‚¹æ•°
     }
-
+    //Test
     private int GetCrossPointNum(Vector2 localPoint, List<Vector3> vertexList)
     {
-        int count = 0;  // ½»²æµã¼ÆÊı
-        Vector3 vert1 = Vector3.zero;  // ¶¥µã1
-        Vector3 vert2 = Vector3.zero;  // ¶¥µã2
-        int vertCount = vertexList.Count;  // ¶¥µã×ÜÊı
+        int count = 0;  // äº¤å‰ç‚¹è®¡æ•°
+        Vector3 vert1 = Vector3.zero;  // é¡¶ç‚¹1
+        Vector3 vert2 = Vector3.zero;  // é¡¶ç‚¹2
+        int vertCount = vertexList.Count;  // é¡¶ç‚¹æ€»æ•°
 
-        for (int i = 0; i < vertCount; i++)  // Ñ­»·ËùÓĞ¶¥µã
+        for (int i = 0; i < vertCount; i++)  // å¾ªç¯æ‰€æœ‰é¡¶ç‚¹
         {
-            vert1 = vertexList[i];  // µ±Ç°¶¥µã
-            vert2 = vertexList[(i + 1) % vertCount];  // ÏÂÒ»¶¥µã£¬»·×´
+            vert1 = vertexList[i];  // å½“å‰é¡¶ç‚¹
+            vert2 = vertexList[(i + 1) % vertCount];  // ä¸‹ä¸€é¡¶ç‚¹ï¼Œç¯çŠ¶
 
             if (IsYInRang(localPoint, vert1, vert2))
             {
-                if (localPoint.x < GetX(vert1, vert2, localPoint.y))  // ÅĞ¶ÏXÎ»ÖÃ
+                if (localPoint.x < GetX(vert1, vert2, localPoint.y))  // åˆ¤æ–­Xä½ç½®
                 {
-                    count++;  // ½»²æµã¼ÆÊı
+                    count++;  // äº¤å‰ç‚¹è®¡æ•°
                 }
             }
         }
@@ -141,19 +141,19 @@ public class CircleImage : Image
 
     private bool IsYInRang(Vector2 localPoint, Vector3 vert1, Vector3 vert2)
     {
-        if (vert1.y > vert2.y)  // ÅĞ¶ÏY·½Ïò·¶Î§
+        if (vert1.y > vert2.y)  // åˆ¤æ–­Yæ–¹å‘èŒƒå›´
         {
-            return localPoint.y < vert1.y && localPoint.y > vert2.y;  // ÅĞ¶ÏÊÇ·ñÔÚ·¶Î§ÄÚ
+            return localPoint.y < vert1.y && localPoint.y > vert2.y;  // åˆ¤æ–­æ˜¯å¦åœ¨èŒƒå›´å†…
         }
         else
         {
-            return localPoint.y < vert2.y && localPoint.y > vert1.y;  // ÅĞ¶ÏÊÇ·ñÔÚ·¶Î§ÄÚ
+            return localPoint.y < vert2.y && localPoint.y > vert1.y;  // åˆ¤æ–­æ˜¯å¦åœ¨èŒƒå›´å†…
         }
     }
 
     private float GetX(Vector3 vert1, Vector3 vert2, float y)
     {
-        float k = (vert1.y - vert2.y) / (vert1.x - vert2.x);  // ¼ÆËãĞ±ÂÊ
-        return vert1.x + (y - vert1.y) / k;  // ÓÃĞ±ÂÊ¹«Ê½Çóx×ø±ê
+        float k = (vert1.y - vert2.y) / (vert1.x - vert2.x);  // è®¡ç®—æ–œç‡
+        return vert1.x + (y - vert1.y) / k;  // ç”¨æ–œç‡å…¬å¼æ±‚xåæ ‡
     }
 }
